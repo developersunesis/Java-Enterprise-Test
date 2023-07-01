@@ -27,12 +27,7 @@ experience the full functionality of the project.
 Navigate to the service module/folder in a different terminal:
 ```bash
 cd ./AccountService
-```
-
-Execute the following:
-```bash
-mvn test
-mvn clean build
+mvn clean install
 mvn spring-boot:run
 ```
 
@@ -41,12 +36,7 @@ mvn spring-boot:run
 Navigate to the service module/folder in a different terminal:
 ```bash
 cd ./TransactionService
-```
-
-Execute the following:
-```bash
-mvn test
-mvn clean build
+mvn clean install
 mvn spring-boot:run
 ```
 
