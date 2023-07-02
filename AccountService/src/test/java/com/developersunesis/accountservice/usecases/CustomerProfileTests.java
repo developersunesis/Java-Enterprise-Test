@@ -4,7 +4,6 @@
 
 package com.developersunesis.accountservice.usecases;
 
-import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static com.developersunesis.accountservice.utils.CustomerProfiles.profile;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import java.util.LinkedHashMap;
+
+import static com.developersunesis.accountservice.utils.GsonUtils.gson;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -26,7 +27,15 @@ public class CustomerProfileTests {
 
     @Autowired
     private MockMvc mockMvc;
-    private final Gson gson = new Gson();
+
+    public static LinkedHashMap<String, String> profile(String bvn){
+        LinkedHashMap<String, String> request = new LinkedHashMap<>();
+        request.put("bvn", bvn);
+        request.put("lastName", "Sunesis");
+        request.put("firstName", "Emmanuel");
+        request.put("address", "450 Axis Estate, Malebu, London");
+        return request;
+    }
 
     @Test
     @DisplayName("Given customer's information is provided, " +
@@ -34,7 +43,7 @@ public class CustomerProfileTests {
     public void shouldReturnNewCustomerProfile() throws Exception {
         String bvn = "0000000000";
         this.mockMvc.perform(post("/api/profile").contentType(MediaType.APPLICATION_JSON)
-                        .content(gson.toJson(profile(bvn)))).andDo(print())
+                        .content(gson().toJson(profile(bvn)))).andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("Success"))
                 .andExpect(jsonPath("$.data").exists())
@@ -48,7 +57,7 @@ public class CustomerProfileTests {
     public void shouldReturnWithFailureExistingCustomerProfile() throws Exception {
         String bvn = "9737494739";
         this.mockMvc.perform(post("/api/profile").contentType(MediaType.APPLICATION_JSON)
-                        .content(gson.toJson(profile(bvn)))).andDo(print())
+                        .content(gson().toJson(profile(bvn)))).andDo(print())
                 .andExpect(status().isBadRequest()).andExpect(jsonPath("$.message")
                         .value("Profile with similar bvn already exists"));
     }
