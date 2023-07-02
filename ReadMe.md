@@ -14,7 +14,7 @@ The structure of the project is mainly in three parts:
 
 ### Install/Usage
 #### Installation Requirements
-- Java 8 or above
+- Java 17
 - Maven
 - SpringBoot
 
