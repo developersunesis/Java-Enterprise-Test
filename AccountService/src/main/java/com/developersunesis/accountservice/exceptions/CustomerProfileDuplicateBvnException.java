@@ -4,9 +4,13 @@
 
 package com.developersunesis.accountservice.exceptions;
 
-public class CustomerProfileDuplicateBvnException extends Exception {
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+public class CustomerProfileDuplicateBvnException extends BaseException {
 
     public CustomerProfileDuplicateBvnException() {
-        super("Profile with similar bvn already exists");
+        super(HttpStatus.BAD_REQUEST, "Profile with similar bvn already exists");
     }
 }

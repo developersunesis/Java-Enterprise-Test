@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static com.developersunesis.accountservice.utils.CustomerProfiles.profile;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -50,5 +51,29 @@ public class CustomerProfileTests {
                         .content(gson.toJson(profile(bvn)))).andDo(print())
                 .andExpect(status().isBadRequest()).andExpect(jsonPath("$.message")
                         .value("Profile with similar bvn already exists"));
+    }
+
+    @Test
+    @DisplayName("Given customer's id is provided, " +
+            "When customer already exists, Then return customer profile")
+    public void shouldReturnExistingCustomerProfile() throws Exception {
+        this.mockMvc.perform(get("/api/profile/ab1f8512-b620-4e37-b7bb-c226b0c23671")
+                        .contentType(MediaType.APPLICATION_JSON)).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Success"))
+                .andExpect(jsonPath("$.data").exists())
+                .andExpect(jsonPath("$.data.id").value("ab1f8512-b620-4e37-b7bb-c226b0c23671"))
+                .andExpect(jsonPath("$.data.address").value("5 NowayHome Street"))
+                .andExpect(jsonPath("$.data.bvn").value("9737494739"));;
+    }
+
+    @Test
+    @DisplayName("Given customer's id is provided, " +
+            "When customer doesn't exist, Then return an error")
+    public void shouldReturnWithFailureCustomerProfileNotFound() throws Exception {
+        this.mockMvc.perform(get("/api/profile/97698d8c-09c3-432a-a772-656230e11b93")
+                        .contentType(MediaType.APPLICATION_JSON)).andDo(print())
+                .andExpect(status().isNotFound()).andExpect(jsonPath("$.message")
+                        .value("Profile [97698d8c-09c3-432a-a772-656230e11b93] does not exist"));
     }
 }

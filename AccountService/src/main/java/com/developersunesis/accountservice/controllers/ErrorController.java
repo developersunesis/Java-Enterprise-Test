@@ -5,6 +5,7 @@
 package com.developersunesis.accountservice.controllers;
 
 import com.developersunesis.accountservice.dtos.ResponseDto;
+import com.developersunesis.accountservice.exceptions.BaseException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -23,5 +24,12 @@ public class ErrorController extends DefaultHandlerExceptionResolver {
     public ResponseEntity<?> unresolvedError(Exception e){
         log.error("Unresolved Error", e);
         return ResponseEntity.badRequest().body(ResponseDto.build(null, e.getMessage()));
+    }
+
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<?> baseException(BaseException e){
+        log.error("Unresolved Error", e);
+        return ResponseEntity.status(e.getHttpStatus())
+                .body(ResponseDto.build(null, e.getMessage()));
     }
 }
