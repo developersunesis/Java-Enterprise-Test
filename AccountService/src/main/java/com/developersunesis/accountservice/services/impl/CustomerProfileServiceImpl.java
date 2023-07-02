@@ -5,6 +5,7 @@
 package com.developersunesis.accountservice.services.impl;
 
 import com.developersunesis.accountservice.dtos.CustomerProfileDto;
+import com.developersunesis.accountservice.exceptions.CustomerProfileDoesNotExistException;
 import com.developersunesis.accountservice.exceptions.CustomerProfileDuplicateBvnException;
 import com.developersunesis.accountservice.services.CustomerProfileService;
 import com.developersunesis.accountservice.services.entities.CustomerProfile;
@@ -21,7 +22,7 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
 
     @Override
     public CustomerProfileDto create(CustomerProfileDto customerProfileDto) throws CustomerProfileDuplicateBvnException {
-        if(customerProfileRepository.existsByBvn(customerProfileDto.getBvn()))
+        if (customerProfileRepository.existsByBvn(customerProfileDto.getBvn()))
             throw new CustomerProfileDuplicateBvnException();
 
         // create new customer profile
@@ -31,5 +32,11 @@ public class CustomerProfileServiceImpl implements CustomerProfileService {
         customerProfileDto.setId(customerProfile.getId());
 
         return customerProfileDto;
+    }
+
+    @Override
+    public CustomerProfileDto get(String id) throws CustomerProfileDoesNotExistException {
+        return customerProfileRepository.findById(id).map(CustomerProfileDto::toDto)
+                .orElseThrow(() -> new CustomerProfileDoesNotExistException(id));
     }
 }
