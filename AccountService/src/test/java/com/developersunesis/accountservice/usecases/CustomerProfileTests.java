@@ -45,12 +45,7 @@ public class CustomerProfileTests {
     @DisplayName("Given customer's information is provided, " +
             "When customer already exists, Then return an error")
     public void shouldReturnWithFailureExistingCustomerProfile() throws Exception {
-        String bvn = "1111111111";
-        // create an account with specified bvn above
-        this.mockMvc.perform(post("/api/profile").contentType(MediaType.APPLICATION_JSON)
-                .content(gson.toJson(profile(bvn))));
-
-        // attempt to create account with existing bvn again
+        String bvn = "9737494739";
         this.mockMvc.perform(post("/api/profile").contentType(MediaType.APPLICATION_JSON)
                         .content(gson.toJson(profile(bvn)))).andDo(print())
                 .andExpect(status().isBadRequest()).andExpect(jsonPath("$.message")
