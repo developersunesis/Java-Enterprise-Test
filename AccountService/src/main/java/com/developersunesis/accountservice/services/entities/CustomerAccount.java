@@ -25,6 +25,8 @@ public class CustomerAccount {
     private String accountNo;
     @Column(nullable = false)
     private String customerId;
+    @Column(nullable = false, length = 5)
+    private String currency;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AccountTypes type = CURRENT;

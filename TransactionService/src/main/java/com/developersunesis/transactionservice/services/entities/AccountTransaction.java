@@ -27,6 +27,8 @@ public class AccountTransaction {
     private String type;
     @Column(nullable = false)
     private String accountNo;
+    @Column(nullable = false, length = 5)
+    private String currency;
     @Column(nullable = false)
     private String customerId;
     @Column(nullable = false)

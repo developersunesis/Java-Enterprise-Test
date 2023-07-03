@@ -35,6 +35,7 @@ public class AccountTransactionTests {
         LinkedHashMap<String, String> request = new LinkedHashMap<>();
         request.put("accountNo", "1234567890");
         request.put("accountType", "CURRENT");
+        request.put("currency", "NGN");
         request.put("type", "CREDIT");
         request.put("amount", "1000");
 
@@ -45,6 +46,7 @@ public class AccountTransactionTests {
                 .andExpect(jsonPath("$.message").value("Success"))
                 .andExpect(jsonPath("$.data").exists())
                 .andExpect(jsonPath("$.data.id").exists())
+                .andExpect(jsonPath("$.data.currency").exists())
                 .andExpect(jsonPath("$.data.amount").value("1000"))
                 .andExpect(jsonPath("$.data.createdAt").exists())
                 .andExpect(jsonPath("$.data.updatedAt").exists())
@@ -66,6 +68,7 @@ public class AccountTransactionTests {
                 .andExpect(jsonPath("$.size").exists())
                 .andExpect(jsonPath("$.data[0].id").exists())
                 .andExpect(jsonPath("$.data[0].amount").exists())
+                .andExpect(jsonPath("$.data[0].currency").exists())
                 .andExpect(jsonPath("$.data[0].accountNo").value("1234567890"))
                 .andExpect(jsonPath("$.data[0].customerId").value("03841a2e-c080-43b7-bb19-13769810ca57"))
                 .andExpect(jsonPath("$.data[0].type").exists());
