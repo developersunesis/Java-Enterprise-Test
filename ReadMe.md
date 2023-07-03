@@ -56,8 +56,7 @@ a multimodule project structure is used
 - TDD (use-case perspective) was used for implementation of all business logic
 - No security mechanism was implemented for this project but options to explore include 
 but not limited to JWT Authorization/Authentication with RBAC, API keys or BASIC authentication
-- Containerization mechanisms were considered but not implemented. In this case Docker or Kubernetes could be used to 
-individually
+- Containerization mechanisms were considered but not implemented. In this case Docker or Kubernetes could be used
 - The services are loosely coupled. Read about loosely coupled system [here](https://nordicapis.com/how-to-design-loosely-coupled-microservices/)
 - Lastly, REST is used for communication between the two services. There are other good solutions to replace 
-this "infrastructurally" covered in the system design ADR 
+this "infrastructurally" covered in the [system design ADR](doc/adrs/0002-system-design-assumptions-and-decisions.md)
