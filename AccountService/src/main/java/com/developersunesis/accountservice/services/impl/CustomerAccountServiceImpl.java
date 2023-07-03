@@ -40,10 +40,12 @@ public class CustomerAccountServiceImpl implements CustomerAccountService {
         customerAccount.setCustomerId(customerProfileDto.getId());
         customerAccount.setBalance(customerAccountDto.getInitialCredit());
         customerAccount.setStartingBalance(customerAccountDto.getInitialCredit());
+        customerAccount.setCurrency(customerAccountDto.getCurrency());
         customerAccountRepository.save(customerAccount);
 
         if(customerAccount.getStartingBalance().doubleValue() > 0) {
             CreateTransactionDto createTransactionDto = CreateTransactionDto.builder()
+                    .currency(customerAccount.getCurrency()).customerId(customerAccount.getCustomerId())
                     .accountNo(customerAccount.getAccountNo()).amount(customerAccount.getStartingBalance())
                     .type("CREDIT").build();
             accountTransactionService.create(createTransactionDto)

@@ -7,6 +7,7 @@ package com.developersunesis.transactionservice.dtos;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,9 +23,12 @@ public class AccountTransactionDto {
     private String type;
     @NotBlank
     private String accountNo;
+    @NotBlank
+    @Size(min = 3, max = 3)
+    private String currency;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String customerId;
-    @DecimalMin("0")
+    @DecimalMin("1")
     private BigDecimal amount;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date createdAt;
