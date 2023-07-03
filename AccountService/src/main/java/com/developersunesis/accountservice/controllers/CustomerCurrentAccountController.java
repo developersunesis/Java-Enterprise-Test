@@ -26,9 +26,9 @@ public class CustomerCurrentAccountController {
         return ResponseDto.build(savedCustomerAccountDto, "Success");
     }
 
-    @GetMapping("{id}")
-    public ResponseDto<CustomerAccountDto> read(@PathVariable String id) throws BaseException {
-        CustomerAccountDto savedCustomerAccountDto = customerAccountService.get(id);
+    @GetMapping("{accountNo}")
+    public ResponseDto<CustomerAccountDto> read(@PathVariable String accountNo) throws BaseException {
+        CustomerAccountDto savedCustomerAccountDto = customerAccountService.get(accountNo);
         return ResponseDto.build(savedCustomerAccountDto, "Success");
     }
 }
