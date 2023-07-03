@@ -1,4 +1,4 @@
--- Create sample profiles upon application initialization
+-- Create customer profiles upon application initialization
 INSERT INTO customer_profiles (id, first_name, last_name, address, bvn, created_at, updated_at)
 VALUES ('ab1f8512-b620-4e37-b7bb-c226b0c23671', 'Ajax', 'Peter', '5 NowayHome Street', '9737494739',
         '2023-07-02 23:03:38.749', '2023-07-02 23:03:38.749'),
@@ -8,7 +8,3 @@ VALUES ('ab1f8512-b620-4e37-b7bb-c226b0c23671', 'Ajax', 'Peter', '5 NowayHome St
         '2023-07-02 23:03:38.749', '2023-07-02 23:03:38.749'),
        ('03841a2e-c080-43b7-bb19-13769810ca57', 'Zedd', 'Leman', '50 Pivot Street', '938048482930',
         '2023-07-02 23:03:38.749', '2023-07-02 23:03:38.749');
-
--- Create customer account for "Zedd Leman"
-INSERT INTO customer_accounts (account_no, customer_id, starting_balance, balance, created_at, updated_at)
-VALUES ('0294839484', '03841a2e-c080-43b7-bb19-13769810ca57', '0', '0', '2023-07-02 23:03:38.749', '2023-07-02 23:03:38.749');

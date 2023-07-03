@@ -4,10 +4,8 @@
 
 package com.developersunesis.accountservice.services.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import com.developersunesis.accountservice.enums.AccountTypes;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,6 +15,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Random;
 
+import static com.developersunesis.accountservice.enums.AccountTypes.CURRENT;
+
 @Getter
 @Setter
 @Entity(name = "customer_accounts")
@@ -25,6 +25,9 @@ public class CustomerAccount {
     private String accountNo;
     @Column(nullable = false)
     private String customerId;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private AccountTypes type = CURRENT;
     @Column(nullable = false)
     private BigDecimal startingBalance = BigDecimal.ZERO;
     @Column(nullable = false)

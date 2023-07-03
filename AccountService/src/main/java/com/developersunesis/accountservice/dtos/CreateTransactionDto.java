@@ -16,5 +16,7 @@ import java.math.BigDecimal;
 public class CreateTransactionDto {
     private String type;
     private String accountNo;
+    private String customerId;
     private BigDecimal amount;
+    private String accountType;
 }
